@@ -107,7 +107,8 @@ class ConfigManager
             ->setSourcePaths($config['source-paths'])
             ->setSyncLaravel($config['sync-laravel'])
             ->setAdapter($adapter)
-            ->setStorage($storage);
+            ->setStorage($storage)
+            ->setEnableBladeX($config['enable-blade-x']);
 
         if (array_key_exists('relative-path', $config)) {
             $container->setRelativePath($config['relative-path']);
@@ -123,6 +124,10 @@ class ConfigManager
 
         if (array_key_exists("handler", $config)) {
             $container->setHandler($config['handler']);
+        }
+
+        if (array_key_exists("blade-x-components", $config)) {
+            $container->setBladeXComponents($config['blade-x-components']);
         }
 
         return $container;

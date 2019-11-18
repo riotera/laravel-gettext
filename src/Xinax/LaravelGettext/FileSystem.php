@@ -100,13 +100,25 @@ class FileSystem
             $fs = new \Illuminate\Filesystem\Filesystem($path);
             $files = $fs->allFiles($realPath);
 
+            if ($this->configuration->isBladeXEnabled()) {
+                $bladeX = new \Spatie\BladeX\BladeX;
+                $bladeX->component($this->configuration->getBladeXComponents());
+
+                $bladeXCompiler = new \Spatie\BladeX\Compiler($bladeX);
+            }
+
             $compiler = new \Illuminate\View\Compilers\BladeCompiler($fs, $domainDir);
 
             foreach ($files as $file) {
                 $filePath = $file->getRealPath();
                 $compiler->setPath($filePath);
 
-                $contents = $compiler->compileString($fs->get($filePath));
+                $content = $fs->get($filePath);
+                if ($this->configuration->isBladeXEnabled()) {
+                    $content = $bladeXCompiler->compile($content);
+                }
+
+                $contents = $compiler->compileString($content);
 
                 $compiledPath = $compiler->getCompiledPath($compiler->getPath());
 

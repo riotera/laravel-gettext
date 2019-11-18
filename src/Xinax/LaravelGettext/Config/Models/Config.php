@@ -89,6 +89,20 @@ class Config
     protected $syncLaravel;
 
     /**
+     * Enable Spatie/BladeX
+     *
+     * @type Boolean
+     */
+    protected $enableBladeX;
+
+    /**
+     * Blade X Components (names or paths)
+     *
+     * @type array
+     */
+    protected $bladeXComponents;
+
+    /**
      * The adapter class used to sync with laravel locale
      *
      * @var string
@@ -399,6 +413,52 @@ class Config
     public function setSyncLaravel($syncLaravel)
     {
         $this->syncLaravel = $syncLaravel;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBladeXEnabled()
+    {
+        return $this->enableBladeX;
+    }
+
+    /**
+     * @param bool $enableBladeX
+     *
+     * @return $this
+     */
+    public function setEnableBladeX($enableBladeX)
+    {
+        $this->enableBladeX = $enableBladeX;
+
+        return $this;
+    }
+
+    /**
+     * Gets the BladeX components list.
+     *
+     * @return mixed
+     */
+    public function getBladeXComponents()
+    {
+        return !empty($this->bladeXComponents)
+            ? $this->bladeXComponents
+            : [];
+    }
+
+    /**
+     * Sets the BladeX components list
+     *
+     * @param mixed $bladeXComponents the BladeX components list
+     *
+     * @return self
+     */
+    public function setBladeXComponents($bladeXComponents)
+    {
+        $this->bladeXComponents = $bladeXComponents;
 
         return $this;
     }

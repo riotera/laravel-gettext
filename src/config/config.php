@@ -123,6 +123,16 @@ return [
     'sync-laravel' => true,
 
     /**
+     * Enable Spatie\BladeX: you need to flag it if you use the Spatie\BladeX package
+     */
+    'enable-blade-x' => false,
+
+    /**
+    * List of BladeX componente
+    */
+    'blade-x-components' => [],
+
+    /**
      * The adapter used to sync the laravel built-in locale
      */
     'adapter' => \Xinax\LaravelGettext\Adapters\LaravelAdapter::class,
